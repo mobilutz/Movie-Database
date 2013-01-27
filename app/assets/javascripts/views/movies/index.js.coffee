@@ -66,7 +66,8 @@ class Imdb.Views.MoviesIndex extends Backbone.View
         for category in gon.categories
           @renderFacet(gon.categoryFacets, 'categories', 'category', category.id, category.name)
         @renderFacet(gon.categoryFacets, 'categories', 'category', '-1', "Keine Kategorie")
-    if @collection.ratingFacet
+    console.info @collection.ratingFacet
+    if @collection.ratingFacet || @collection.ratingFacet == 0
       @$('#title').html("Alle #{@collection.ratingFacet} #{@pluralize(@collection.ratingFacet, 'Stern', 'Sterne')} Movies")
       @$('#ratings').find(".#{@collection.ratingFacet}").addClass('selected')
     else if @collection.categoryFacet
@@ -80,10 +81,8 @@ class Imdb.Views.MoviesIndex extends Backbone.View
     @
 
   renderFacet: (facets, element, dataName, dataValue, text) =>
-    console.info facets
     facet = $.grep facets, (e) ->
       e.term == dataValue
-    console.info facet
     count = if facet.length then facet[0].count else 0
     @$("##{element}").append("<li data-#{dataName}=\"#{dataValue}\" class=\"#{dataValue}\">#{text}  (#{count} #{@pluralize(count, 'Film', 'Filme')})</li>")
 
