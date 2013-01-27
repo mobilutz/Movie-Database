@@ -9,7 +9,7 @@ class Movie < ActiveRecord::Base
 
   include Tire::Model::Search
   include Tire::Model::Callbacks
-  index_name INDEX_NAME # optional, as per the above.
+  index_name INDEX_NAME unless Rails.env.development?
 
   def self.search(params)
     tire.search(page: params[:page], per_page: params[:per_page]) do
