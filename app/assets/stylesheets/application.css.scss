@@ -28,6 +28,14 @@
 #movies-meta {
   margin-bottom: 20px;
 }
+#movies {
+  tr {
+    cursor: pointer;
+    &.no_cursor {
+      cursor: auto;
+    }
+  }
+}
 
 .paging {
   margin-bottom: 20px;

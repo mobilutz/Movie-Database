@@ -117,7 +117,7 @@ class Imdb.Views.MoviesIndex extends Backbone.View
     @$('#movies').append(view.render().el)
 
   noData: ->
-    @$('#movies').append('<tr><td colspan="4" class="centered">Leider keine Filme gefunden</td></tr>')
+    @$('#movies').append('<tr class="no_cursor"><td colspan="4" class="centered">Leider keine Filme gefunden</td></tr>')
     @$('.pager').hide()
 
   pluralize: (num, single, multiple) ->
