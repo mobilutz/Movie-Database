@@ -12,6 +12,9 @@
  *= require_tree .
  */
 
+.remove_facet {
+  float: right;
+}
 .facets {
   li {
     cursor: pointer;

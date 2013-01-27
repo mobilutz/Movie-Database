@@ -12,6 +12,8 @@ class Imdb.Views.MoviesIndex extends Backbone.View
     'click #categories li' : 'categoryFacet'
     'click .next_page' : 'nextPage'
     'click .prev_page' : 'prevPage'
+    'click .remove_rating' : 'removeRatingFacet'
+    'click .remove_category' : 'removeCategoryFacet'
 
   searchMovies: (event) ->
     event.preventDefault()
@@ -65,16 +67,21 @@ class Imdb.Views.MoviesIndex extends Backbone.View
       if gon.categories?
         for category in gon.categories
           @renderFacet(gon.categoryFacets, 'categories', 'category', category.id, category.name)
-        @renderFacet(gon.categoryFacets, 'categories', 'category', '-1', "Keine Kategorie")
-    if @collection.ratingFacet || @collection.ratingFacet == 0
+        @renderFacet(gon.categoryFacets, 'categories', 'category', -1, "Keine Kategorie")
+    if @collection.ratingFacet?
       @$('#title').html("Alle #{@collection.ratingFacet} #{@pluralize(@collection.ratingFacet, 'Stern', 'Sterne')} Movies")
       @$('#ratings').find(".#{@collection.ratingFacet}").addClass('selected')
+      @$('#rating_facet').prepend("<a class=\"remove_facet remove_rating\">remove</a>")
     else if @collection.categoryFacet
-      category = $.grep gon.categories, (e) =>
-        e.id == @collection.categoryFacet
-      name = if category.length > 0 then category[0].name else 'unkategorisierten'
+      if @collection.categoryFacet == -1
+        name = 'unkategorisierten'
+      else
+        category = $.grep gon.categories, (e) =>
+          e.id == @collection.categoryFacet
+        name = category[0].name
       @$('#title').html("Alle '#{name}' Movies")
       @$('#categories').find(".#{@collection.categoryFacet}").addClass('selected')
+      @$('#category_facet').prepend("<a class=\"remove_facet remove_category\">remove</a>")
     if current_user
       @$('#movies-meta').html(_.template(JST['movies/new_button'](@model)))
     @
@@ -84,6 +91,18 @@ class Imdb.Views.MoviesIndex extends Backbone.View
       e.term == dataValue
     count = if facet.length then facet[0].count else 0
     @$("##{element}").append("<li data-#{dataName}=\"#{dataValue}\" class=\"#{dataValue}\">#{text}  (#{count} #{@pluralize(count, 'Film', 'Filme')})</li>")
+
+  removeCategoryFacet: (event) ->
+    event.preventDefault()
+    @collection.categoryFacet = null
+    @collection.fetch()
+    @render()
+
+  removeRatingFacet: (event) ->
+    event.preventDefault()
+    @collection.ratingFacet = null
+    @collection.fetch()
+    @render()
 
   pagination: ->
     @$('.pager').show()
