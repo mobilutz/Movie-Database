@@ -66,7 +66,6 @@ class Imdb.Views.MoviesIndex extends Backbone.View
         for category in gon.categories
           @renderFacet(gon.categoryFacets, 'categories', 'category', category.id, category.name)
         @renderFacet(gon.categoryFacets, 'categories', 'category', '-1', "Keine Kategorie")
-    console.info @collection.ratingFacet
     if @collection.ratingFacet || @collection.ratingFacet == 0
       @$('#title').html("Alle #{@collection.ratingFacet} #{@pluralize(@collection.ratingFacet, 'Stern', 'Sterne')} Movies")
       @$('#ratings').find(".#{@collection.ratingFacet}").addClass('selected')
