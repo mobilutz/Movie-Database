@@ -1,0 +1,17 @@
+%h1 Neue Bewertung für den Film '#{@rating.movie.title}'
+
+= form_for [@rating.movie, @rating], html: {class: 'form-horizontal'} do |f|
+  - if @rating.errors.any?
+    .alert.alert-error
+      %a.close{data: {dismiss:"alert"}}×
+      - @rating.errors.full_messages.each do |message|
+        = message
+        %br/
+  .control-group
+    = f.label 'Bewertung', class: 'control-label'
+    .controls
+      = f.select :number, 1..5
+  .control-group
+    .controls
+      = f.submit 'Speichern', class: 'btn btn-success'
+      = link_to 'Abbrechen', movie_path(@rating.movie), class: 'btn btn-warning'

@@ -1,0 +1,24 @@
+<h1 id="title">Alle Movies</h1>
+<div id="facetting" class="pull-right span2"><h4>Bewertungen</h4><ul id="ratings" class="facets"></ul></div>
+<div id="categry_facet" class="pull-right span3"><h4>Kategorien</h4><ul id="categories" class="facets"></ul></div>
+<form id="search_form" class="form-search">
+  <div class="input-append">
+    <input type="text" name="" value="" id="search_field" placeholder="Suche ..." class="input-normal search-query">
+    <button type="submit" class="btn">Suchen</button>
+  </div>
+</form>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr><th width="15%">Title</th><th>Description</th><th width="15%">Kategorie</th><th width="10%">&#216; Rating</th></tr>
+  </thead>
+  <tbody id="movies"></tbody>
+</table>
+<ul class="pager">
+  <li><a class="btn prev_page"><i class="icon-backward"></i></a></li>
+  <li id="page-num"></li>
+  <li><a class="btn next_page"><i class="icon-forward"></i></a></li>
+</ul>
+
+<div id="movies-meta"></div>

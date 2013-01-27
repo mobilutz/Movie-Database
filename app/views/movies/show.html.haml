@@ -1,0 +1,22 @@
+- desc = @movie.text.present? ? @movie.text : content_tag(:span, 'nicht vorhanden', class: 'muted')
+%h1= @movie.title
+%dl.dl-horizontal
+  %dt Beschreibung
+  %dd= desc
+  %dt &#216; Bewertung
+  %dd= render 'shared/star', stars: @movie.rating_avg
+
+- if current_user
+  .movie-meta
+    = link_to 'Bearbeiten', edit_movie_path(@movie), class: 'btn'
+    = link_to 'Loeschen', movie_path(@movie), method: :delete, confirm: 'Wollen Sie den Film wirklich loeschen?', class: 'btn btn-danger'
+
+%h3 #{@movie.rating_count} Bewertungen
+- if current_user && !@movie.rated_by?(current_user)
+  = link_to content_tag(:i, '', class: 'icon-plus').to_s + ' Bewertung abbgeben', new_movie_rating_path(@movie), class: 'btn'
+%table.table
+  - @movie.ratings.each do |rating|
+    = render 'shared/rating', rating: rating
+
+
+= link_to content_tag(:i, '', class: 'icon-arrow-left') + " Zurück zur Übersicht", '/', class: 'btn'

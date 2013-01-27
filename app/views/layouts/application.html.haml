@@ -1,0 +1,40 @@
+!!!html
+%html
+  %head
+    %title New Movie DataBase
+    /[if lt IE 9]
+      %script{src: "http://html5shim.googlecode.com/svn/trunk/html5.js", type: "text/javascript"}
+    = stylesheet_link_tag    "application", :media => "all"
+    = csrf_meta_tags
+    = include_gon
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{data: {toggle: "collapse", target: ".nav-collapse"}}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{href:"/#"} NMDb
+          .nav-collapse
+            %ul.nav
+              %li= link_to "Movies", '/#movies'
+          .pull-right
+            - if current_user
+              = link_to 'Abmelden', logout_path, class: 'btn'
+            - else
+              = link_to 'Registrieren', signup_path, class: 'btn btn-success'
+              = link_to 'Anmelden', login_path, class: 'btn btn-warning'
+    .container
+      - flash.each do |name, msg|
+        .alert{class: "alert-#{ name == :notice ? "success" : "error"}"}
+          %a.close{data: {dismiss: "alert"}}×
+          = msg
+      .row
+        .span12
+          #container
+            = yield
+
+    = javascript_include_tag "application"
+    :javascript
+      window.current_user = #{current_user.present?}

@@ -1,0 +1,17 @@
+%h1 "#{@movie.title}" bearbeiten
+
+= form_for @movie, html: {class: 'form-horizontal'} do |f|
+  .control-group
+    = f.label :title, 'Titel', class: 'control-label'
+    .controls
+      = f.text_field :title, class: 'span5'
+  .control-group
+    = f.label :text, 'Beschreibung', class: 'control-label'
+    .controls
+      = f.text_area :text, class: 'span5', rows: 8
+  .control-group
+    .controls
+      = f.submit 'Speichern', class: 'btn btn-success'
+      = link_to 'Abbrechen', movie_path(@movie), class: 'btn btn-warning'
+
+= link_to content_tag(:i, '', class: 'icon-arrow-left') + " Zurück zum Film '#{@movie.title}'", movie_path(@movie), class: 'btn'
