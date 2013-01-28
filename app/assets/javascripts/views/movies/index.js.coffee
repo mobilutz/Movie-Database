@@ -58,8 +58,9 @@ class Imdb.Views.MoviesIndex extends Backbone.View
     if @collection.size() == 0
       @noData()
     else
-      @collection.each(@appendMovie, @)
-      @pagination()
+      @renderCollection(@)
+      # @collection.each(@appendMovie, @)
+      # @pagination()
     if gon?
       if gon.ratings?
         for rating in [0..5]
@@ -85,6 +86,10 @@ class Imdb.Views.MoviesIndex extends Backbone.View
     if current_user
       @$('#movies-meta').html(_.template(JST['movies/new_button'](@model)))
     @
+
+  renderCollection: ->
+    @collection.each(@appendMovie, @)
+    @pagination()
 
   renderFacet: (facets, element, dataName, dataValue, text) =>
     facet = $.grep facets, (e) ->

@@ -34,4 +34,7 @@ Imdb::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Don't load assets from precompiled assets (precompiling for production in git pre hook)
+  config.assets.prefix = '/assets_dev'
 end

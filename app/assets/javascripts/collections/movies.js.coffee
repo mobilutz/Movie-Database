@@ -19,10 +19,7 @@ class Imdb.Collections.Movies extends Backbone.Collection
     Backbone.Collection.prototype.fetch.call @, options
 
   parse: (resp) ->
-    if resp.length > 0
-      @total = resp[0].total
-    else
-      @total = 0
+    @total = if resp.length > 0 then resp[0].total else 0
     @pages = Math.ceil @total / @perPage
     resp
 
