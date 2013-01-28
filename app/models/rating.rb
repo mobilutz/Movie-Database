@@ -7,5 +7,5 @@ class Rating < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :movie
   validates_numericality_of :number
-  validates_inclusion_of :number, :in => 0..5
+  validates_inclusion_of :number, in: 0..5
 end

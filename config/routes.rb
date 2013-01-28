@@ -18,6 +18,6 @@ Imdb::Application.routes.draw do
     resources :ratings
   end
 
-  root :to => 'main#index'
+  root to: 'main#index'
   # match '*path' => 'main#index'
 end
